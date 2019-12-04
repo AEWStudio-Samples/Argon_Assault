@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // con fig vars
     [Header("DEBUG")]
@@ -12,31 +9,32 @@ public class Player : MonoBehaviour
     [SerializeField] float traceLength = 100f;
     [SerializeField] float traceDuration = 0f;
 
-    [Header("Position")]
+    [Header("General")]
     [Tooltip("In ms^-1"), SerializeField]
-    float speed = 20f;
+    float controlSpeed = 30f;
     [Tooltip("In m"), SerializeField]
-    float xClamp = 15f;
+    float xClamp = 13f;
     [Tooltip("In m"), SerializeField]
-    float yClamp = 10f;
+    float yClamp = 9f;
 
     [Header("Rotation")]
     [SerializeField]
-    float pitchFactor = -1.8f;
+    float pitchFactor = -0.8f;
     [SerializeField]
     float pitchControll = -22f;
     [SerializeField]
-    float yawFactor = 1.8f;
+    float yawFactor = 1.2f;
     [SerializeField]
-    float rollFactor = -18f;
+    float rollFactor = -48f;
     [SerializeField]
-    float rollControll = -30f;
+    float rollControll = -50f;
 
     [Header("Sound FX")]
     [SerializeField]
     AudioSource thrusterSound;
 
     //state vars
+    bool controllsEnabled = true;
     float idleSoundPitch;
     
     // Start is called before the first frame update
@@ -57,15 +55,18 @@ public class Player : MonoBehaviour
 
     private void ProcessTranslation()
     {
+        // check if movement is enabled
+        if (!controllsEnabled) return;
+
         // handle x position
         float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-        float xOffset = xThrow * speed * Time.deltaTime;
+        float xOffset = xThrow * controlSpeed * Time.deltaTime;
         float rawXPos = transform.localPosition.x + xOffset;
         float clampedXPos = Mathf.Clamp(rawXPos, -xClamp, xClamp);
 
         // handle y position
         float yThrow = CrossPlatformInputManager.GetAxis("Vertical");
-        float yOffset = yThrow * speed * Time.deltaTime;
+        float yOffset = yThrow * controlSpeed * Time.deltaTime;
         float rawYPos = transform.localPosition.y + yOffset;
         float clampedYPos = Mathf.Clamp(rawYPos, -yClamp, yClamp);
 
@@ -92,5 +93,10 @@ public class Player : MonoBehaviour
         float yaw = transform.localPosition.x * yawFactor;
         float roll = (transform.localPosition.x * transform.localPosition.y) / rollFactor + xThrow * rollControll;
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+    private void HandleDeath() // called by string reference
+    {
+        controllsEnabled = false;
     }
 }

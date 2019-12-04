@@ -443,10 +443,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ship_01
       objectReference: {fileID: 0}
-    - target: {fileID: 1090395654553690, guid: e14d375f5a36551479fc2f172353b1ba, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4232234352724882, guid: e14d375f5a36551479fc2f172353b1ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
