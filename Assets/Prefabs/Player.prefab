@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 1312278466}
   - component: {fileID: 7826587873124847120}
   - component: {fileID: 3141788163861156106}
+  - component: {fileID: 7534046753293039581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -320,6 +321,9 @@ MonoBehaviour:
   controlSpeed: 30
   xClamp: 13.6
   yClamp: 9
+  guns:
+  - {fileID: 7826587874068197339}
+  - {fileID: 5570495921676362701}
   pitchFactor: -0.91
   pitchControll: -22
   yawFactor: 1.2
@@ -339,8 +343,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
+  pointsPerKill: 0
   actionDelay: 2
   addOns: {fileID: 7034455246757201235}
+  deathFX: {fileID: 0}
+--- !u!114 &7534046753293039581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7826587873124847123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d4f482f1c93227489ff7636b51b1b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7826587873964829483
 GameObject:
   m_ObjectHideFlags: 0
@@ -28450,7 +28468,7 @@ PrefabInstance:
     - target: {fileID: 2437503698265201556, guid: 55f1d4ba042670a41bcfe0347ca484d0,
         type: 3}
       propertyPath: m_Name
-      value: Bullet System
+      value: Gun Right
       objectReference: {fileID: 0}
     - target: {fileID: 2437503698265201557, guid: 55f1d4ba042670a41bcfe0347ca484d0,
         type: 3}
@@ -28565,6 +28583,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5570495920647877711}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7826587874068197339 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2437503698265201556, guid: 55f1d4ba042670a41bcfe0347ca484d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 5570495920647877711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7826587872965982297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28575,7 +28599,7 @@ PrefabInstance:
     - target: {fileID: 2437503698265201556, guid: 55f1d4ba042670a41bcfe0347ca484d0,
         type: 3}
       propertyPath: m_Name
-      value: Bullet System (1)
+      value: Gun Left
       objectReference: {fileID: 0}
     - target: {fileID: 2437503698265201557, guid: 55f1d4ba042670a41bcfe0347ca484d0,
         type: 3}
@@ -28687,6 +28711,12 @@ PrefabInstance:
 --- !u!224 &5570495921676362700 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2437503698265201557, guid: 55f1d4ba042670a41bcfe0347ca484d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7826587872965982297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5570495921676362701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2437503698265201556, guid: 55f1d4ba042670a41bcfe0347ca484d0,
     type: 3}
   m_PrefabInstance: {fileID: 7826587872965982297}
   m_PrefabAsset: {fileID: 0}

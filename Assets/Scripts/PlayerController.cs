@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
@@ -16,6 +18,8 @@ public class PlayerController : MonoBehaviour
     float xClamp = 13f;
     [Tooltip("In m"), SerializeField]
     float yClamp = 9f;
+    [SerializeField]
+    List<GameObject> guns = null;
 
     [Header("Rotation")]
     [SerializeField]
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sound FX")]
     [SerializeField]
-    AudioSource thrusterSound;
+    AudioSource thrusterSound = null;
 
     //state vars
     bool controllsEnabled = true;
@@ -51,6 +55,12 @@ public class PlayerController : MonoBehaviour
     {
         if (targetTrace) Debug.DrawRay(transform.position, transform.forward * traceLength, Color.red, traceDuration);
         ProcessTranslation();
+        ProcessAttack(CrossPlatformInputManager.GetButton("Fire"));
+    }
+
+    private void HandleDeath() // called by string reference
+    {
+        controllsEnabled = false;
     }
 
     private void ProcessTranslation()
@@ -95,8 +105,13 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
     }
 
-    private void HandleDeath() // called by string reference
+    private void ProcessAttack(bool toggle)
     {
-        controllsEnabled = false;
+        if (guns.Count == 0) return;
+
+        foreach (GameObject gun in guns)
+        {
+            gun.SetActive(toggle);
+        }
     }
 }

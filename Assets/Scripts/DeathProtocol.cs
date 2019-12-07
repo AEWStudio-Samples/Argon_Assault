@@ -6,18 +6,21 @@ using UnityEngine;
 public class DeathProtocol : MonoBehaviour
 {
     // con fog vars
-    [SerializeField]
+    [Tooltip("Is this a player death protocol"), SerializeField]
     bool isPlayer = false;
+    [Tooltip("Point Per Kill"), SerializeField]
+    int pointsPerKill = 0;
     [Tooltip("In seconds"), SerializeField]
     float actionDelay = 0f;
     [Tooltip("Add Ons subgroup"), SerializeField]
-    GameObject addOns;
+    GameObject addOns = null;
     [Tooltip("Death FX"), SerializeField]
-    GameObject deathFX;
+    GameObject deathFX = null;
 
     // state vars
     SceneLoader sceneLoader;
     FXBucket fxBucket;
+    ScoreBoard scoreBoard;
     MeshRenderer meshRenderer;
     Collider collIder;
 
@@ -25,6 +28,7 @@ public class DeathProtocol : MonoBehaviour
     {
         sceneLoader = FindObjectOfType<SceneLoader>();
         fxBucket = FindObjectOfType<FXBucket>();
+        scoreBoard = FindObjectOfType<ScoreBoard>();
         meshRenderer = GetComponent<MeshRenderer>();
         collIder = GetComponent<Collider>();
         SetDFX();
@@ -39,6 +43,7 @@ public class DeathProtocol : MonoBehaviour
 
     private void HandleDeath() // called by string reference
     {
+        if (!isPlayer) scoreBoard.AddPoints(pointsPerKill);
         Instantiate(deathFX, transform.position, transform.rotation, fxBucket.transform);
         if (addOns) addOns.SetActive(false);
         collIder.enabled = false;

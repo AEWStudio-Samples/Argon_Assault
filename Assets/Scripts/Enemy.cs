@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // con fig vars
+    [SerializeField]
+    int hitPoints = 100;
+
+    // state vars
+    Collider boxClollider;
+    CollisionHandler chScript;
+    DeathProtocol dpScript;
+    HealthContainer hcScript;
+
     void Start()
     {
-        Collider boxClollider = gameObject.AddComponent<BoxCollider>();
+        boxClollider = gameObject.AddComponent<BoxCollider>();
         boxClollider.isTrigger = false;
-        CollisionHandler chScript = gameObject.AddComponent<CollisionHandler>();
-        DeathProtocol dpScript = gameObject.AddComponent<DeathProtocol>();
+        chScript = gameObject.AddComponent<CollisionHandler>();
+        dpScript = gameObject.AddComponent<DeathProtocol>();
+        hcScript = gameObject.AddComponent<HealthContainer>();
     }
 }
